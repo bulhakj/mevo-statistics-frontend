@@ -1,7 +1,7 @@
 import React from "react";
 import { Doughnut } from "react-chartjs-2";
 
-const DougnutChart = props => {
+const DoughnutChart = props => {
   const handleMapBatteries = props.nowResponse.map(item => item.battery);
 
   const handleFilterLowBatteries = handleMapBatteries.filter(
@@ -37,4 +37,4 @@ const DougnutChart = props => {
   return <Doughnut data={data} />;
 };
 
-export default DougnutChart;
+export default DoughnutChart;

@@ -1,8 +1,14 @@
 import React, { Component } from "react";
-import { Doughnut } from "react-chartjs-2";
 import axios from "axios";
 import "./App.css";
-import DougnutChart from "./Chart";
+import DoughnutChart from "./Chart";
+import styled from "styled-components";
+import { geolocated } from "react-geolocated";
+import Geolocation from "./Geolocation";
+
+const Wrapper = styled.div`
+  width: 400px;
+`;
 
 class App extends Component {
   state = {
@@ -15,10 +21,6 @@ class App extends Component {
       .then(response => {
         console.log(`response ${response.data.length}`);
         this.handleResponseNow(response.data);
-        this.handleMapBatteries(response.data);
-        this.handleFilterLowBatteries(this.state.allBatteries);
-        this.handleFilterMediumBatteries(this.state.allBatteries);
-        this.handleFilterHighBatteries(this.state.allBatteries);
       })
       .catch(error => {
         console.log(`Wystąpił błąd: ${error}`);
@@ -34,11 +36,20 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div>Test</div>
-        <DougnutChart nowResponse={this.state.nowResponse} />
+        <Wrapper>
+          <div>Test</div>
+          <DoughnutChart nowResponse={this.state.nowResponse} />
+        </Wrapper>
+        <p>{this.props.coords && this.props.coords.latitude}</p>
+        <Geolocation {...this.props} />
       </div>
     );
   }
 }
 
-export default App;
+export const AppWithGeoloc = geolocated({
+  positionOptions: {
+    enableHighAccuracy: false
+  },
+  userDecisionTimeout: 5000
+})(App);
