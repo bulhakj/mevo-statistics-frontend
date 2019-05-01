@@ -5,8 +5,9 @@ import DoughnutChart from "./Chart";
 import styled from "styled-components";
 import { geolocated } from "react-geolocated";
 import Geolocation from "./Geolocation";
+import StationList from "./StationList";
 
-const Wrapper = styled.div`
+const ChartWrapper = styled.div`
   width: 400px;
 `;
 
@@ -19,7 +20,6 @@ class App extends Component {
     axios
       .get("http://localhost:8080/api/bikes/now")
       .then(response => {
-        console.log(`response ${response.data.length}`);
         this.handleResponseNow(response.data);
       })
       .catch(error => {
@@ -36,12 +36,13 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Wrapper>
+        <ChartWrapper>
           <div>Test</div>
           <DoughnutChart nowResponse={this.state.nowResponse} />
-        </Wrapper>
+        </ChartWrapper>
         <p>{this.props.coords && this.props.coords.latitude}</p>
         <Geolocation {...this.props} />
+        <StationList />
       </div>
     );
   }

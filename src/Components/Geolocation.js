@@ -3,9 +3,9 @@ import React from "react";
 class Geolocation extends React.Component {
   render() {
     return !this.props.isGeolocationAvailable ? (
-      <div>Your browser does not support Geolocation</div>
+      <div>Twoja przeglądarka nie obsługuje lokalizacji</div>
     ) : !this.props.isGeolocationEnabled ? (
-      <div>Geolocation is not enabled</div>
+      <div>Lokalizacja nie została włączona</div>
     ) : this.props.coords ? (
       <table>
         <tbody>
